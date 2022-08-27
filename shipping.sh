@@ -1,4 +1,4 @@
-yuminstallmaven-y
+yum installmaven-y
 
 useradd roboshop
 
