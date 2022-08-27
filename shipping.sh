@@ -8,7 +8,7 @@ curl -s -L -o /tmp/shipping.zip "https://github.com/roboshop-devops-project/ship
 unzip -o /tmp/shipping.zip
 mv shipping-main shipping
 cd shipping
-mvn cleanpackage
+mvn clean package
 mv target/shipping-1.0.jar shipping.jar
 
 mv /home/roboshop/shipping/systemd.service /etc/systemd/system/shipping.service
