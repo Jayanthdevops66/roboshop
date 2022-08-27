@@ -1,16 +1,16 @@
 yuminstallmaven-y
 
-useraddroboshop
+useradd roboshop
 
-cd/home/roboshop
-curl-s-L-o/tmp/shipping.zip"https://github.com/roboshop-devops-project/shipping/archive/main.zip"
-unzip/tmp/shipping.zip
-mvshipping-mainshipping
-cdshipping
-mvncleanpackage
-mvtarget/shipping-1.0.jarshipping.jar
+cd /home/roboshop
+curl -s -L -o /tmp/shipping.zip "https://github.com/roboshop-devops-project/shipping/archive/main.zip"
+unzip -o /tmp/shipping.zip
+mv shipping-main shipping
+cd shipping
+mvn cleanpackage
+mv target/shipping-1.0.jar shipping.jar
 
-mv/home/roboshop/shipping/systemd.service/etc/systemd/system/shipping.service
-systemctldaemon-reload
-systemctlstartshipping
-systemctlenableshipping
+mv /home/roboshop/shipping/systemd.service /etc/systemd/system/shipping.service
+systemctl daemon-reload
+systemctl start shipping
+systemctl enable shipping
