@@ -5,7 +5,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
 else
   echo -e "\e[31mSUCCESS\e[0m"
-  exit 1
+  exit
 fi
 
 echo Installing nodejs
@@ -14,7 +14,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
 else
   echo -e "\e[31mSUCCESS\e[0m"
-  exit 1
+  exit
 fi
 
 id roboshop &>>/tmp/cart.log
@@ -25,7 +25,7 @@ if [ $? -ne 0 ]; then
     echo -e "\e[32mSUCCESS\e[0m"
   else
     echo -e "\e[31mSUCCESS\e[0m"
-    exit 1
+    exit
   fi
 
 echo Downloading application content
@@ -35,7 +35,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
 else
   echo -e "\e[31mSUCCESS\e[0m"
-  exit 1
+  exit
 fi
 
 echo Cleaning old Application Content
@@ -44,7 +44,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
 else
   echo -e "\e[31mSUCCESS\e[0m"
-  exit 1
+  exit
 fi
 
 echo Extract Appplication Content
@@ -55,7 +55,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
 else
   echo -e "\e[31mSUCCESS\e[0m"
-  exit 1
+  exit
 fi
 
 echo Installing Nodejs Dependencies
@@ -64,7 +64,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
 else
   echo -e "\e[31mSUCCESS\e[0m"
-  exit 1
+  exit
 fi
 
 echo Configuring cart SystemD Service
@@ -74,7 +74,7 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
 else
   echo -e "\e[31mSUCCESS\e[0m"
-  exit 1
+  exit
 fi
 
 echo Starting Cart Service
@@ -84,5 +84,5 @@ if [ $? -eq 0 ]; then
   echo -e "\e[32mSUCCESS\e[0m"
 else
   echo -e "\e[31mSUCCESS\e[0m"
-  exit 1
+  exit
 fi
