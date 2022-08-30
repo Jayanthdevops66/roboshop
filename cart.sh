@@ -27,6 +27,8 @@ if [ $? -ne 0 ]; then
     echo -e "\e[31mSUCCESS\e[0m"
     exit
   fi
+fi
+
 
 echo Downloading application content
 curl -s -L -o /tmp/cart.zip "https://github.com/roboshop-devops-project/cart/archive/main.zip" &>>/tmp/cart.log
