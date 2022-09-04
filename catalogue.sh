@@ -1,6 +1,6 @@
 source common.sh
-Nodejs
 COMPONENT=catalogue
+NodeJs
 
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
 systemctl daemon-reload
