@@ -22,5 +22,5 @@ cd /tmp && unzip -o mongodb.zip &>>${LOG}
 StatusCheck
 
 echo Load Schema
-cd mongodb-main && mongo < catalogue.js && mongo < users.js &>>${LOG}
+cd mongodb-main && mongo < catalogue.js &>>${LOG} && mongo < users.js &>>${LOG}
 StatusCheck
