@@ -1,9 +1,16 @@
-curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
+source common.sh
+COMPONENT=mysql
 
-yum install mysql-community-server -y
+echo Setup Yum Repos
+curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo &>>${LOG}
+StatusCheck
 
-systemctl enable mysqld
-systemctl start mysqld
+echo Install MySql
+yum install mysql-community-server -y &>>${LOG}
+StatusCheck
+
+echo Start MySql service
+systemctl enable mysqld &>>${LOG} && systemctl start mysqld &>>${LOG}
 
 grep temp /var/log/mysqld.log
 
