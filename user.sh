@@ -2,4 +2,4 @@ source common.sh
 
 COMPONENT=user
 
-NODEJS
+NodeJs
