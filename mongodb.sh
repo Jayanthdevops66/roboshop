@@ -7,7 +7,7 @@ curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/robos
 StatusCheck
 
 echo install mongodb
-yum install -y mongodb-org
+yum install -y mongodb-org &>>${LOG}
 StatusCheck
 
 echo Start MongoDB service
