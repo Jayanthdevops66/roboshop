@@ -4,11 +4,11 @@ COMPONENT=cart
 NodeJs
 
 echo Configuring cart SystemD Service
-mv /home/roboshop/cart/systemd.service /etc/systemd/system/cart.service &>>/tmp/cart.log
-systemctl daemon-reload &>>/tmp/cart.log
+mv /home/roboshop/cart/systemd.service /etc/systemd/system/cart.service &>>${LOG}
+systemctl daemon-reload &>>${LOG}
 StatusCheck
 
 echo Starting Cart Service
-systemctl start cart &>>/tmp/cart.log
-systemctl enable cart &>>/tmp/cart.log
+systemctl start cart &>>${LOG}
+systemctl enable cart &>>${LOG}
 StatusCheck
