@@ -12,7 +12,8 @@ StatusCheck
 echo Start MySql service
 systemctl enable mysqld &>>${LOG} && systemctl start mysqld &>>${LOG}
 
-grep temp /var/log/mysqld.log
+DEFAULT_PASSWORD=$(grep "A tem" /var/log/mysqld.log | awk '{print $NF}')
+echo "alter use 'root'@'localhost' identified with mysql_native_password by 'RoboShop@1';" | mysql -uroot -p${DEFAULT_PASSWORD}
 
 mysql_secure_installation
 

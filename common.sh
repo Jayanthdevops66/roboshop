@@ -8,43 +8,43 @@ StatusCheck() {
 }
 DOWNLOAD() {
   echo Downloading ${COMPONENT} application content
-     curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>/tmp/${COMPONENT}.log
+     curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG}
      StatusCheck
 }
 
 APP_USER_SETUP() {
-  id roboshop &>>/tmp/${COMPONENT}.log
+  id roboshop &>>${LOG}
      if [ $? -ne 0 ]; then
        echo Adding Application user
-       useradd roboshop &>>/tmp/${COMPONENT}.log
+       useradd roboshop &>>${LOG}
        StatusCheck
      fi
 }
 
  NodeJs() {
    echo Setting nodejs repos
-   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/${COMPONENT}.log
+   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG}
    StatusCheck
 
    echo Installing nodejs
-   yum install nodejs -y &>>/tmp/${COMPONENT}.log
+   yum install nodejs -y &>>${LOG}
    StatusCheck
 
    APP_USER_SETUP
    DOWNLOAD
 
    echo Cleaning old Application Content
-   cd /home/roboshop &>>/tmp/${COMPONENT}.log && rm -rf ${COMPONENT} &>>/tmp/${COMPONENT}.log
+   cd /home/roboshop &>>${LOG} && rm -rf ${COMPONENT} &>>${LOG}
    StatusCheck
 
    echo Extract Appplication Content
-   unzip -o /tmp/${COMPONENT}.zip &>>/tmp/${COMPONENT}.log
-   mv ${COMPONENT}-main ${COMPONENT} &>>/tmp/${COMPONENT}.log
-   cd ${COMPONENT} &>>/tmp/${COMPONENT}.log
+   unzip -o /tmp/${COMPONENT}.zip &>>${LOG}
+   mv ${COMPONENT}-main ${COMPONENT} &>>${LOG}
+   cd ${COMPONENT} &>>${LOG}
    StatusCheck
 
    echo Installing Nodejs Dependencies
-   npm install &>>/tmp/${COMPONENT}.log
+   npm install &>>${LOG}
    StatusCheck
  }
 
@@ -54,5 +54,5 @@ if [ $USER_ID -ne 0 ]; then
   exit 1
 fi
 
-LOG=/tmp/${COMPONENT}.log
+LOG=${/tmp/${COMPONENT}.log}
 rm -f ${LOG}
