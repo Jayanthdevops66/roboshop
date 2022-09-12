@@ -26,8 +26,6 @@ if [ $? -ne 0 ]; then
   StatusCheck
 fi
 
-mysql_secure_installation
-
 echo "uninstall plugin validate_password;" | mysql -uroot -p$MYSQL_PASSWORD
 #> uninstall plugin validate_password;
 
