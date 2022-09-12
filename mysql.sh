@@ -18,6 +18,13 @@ echo Start MySql service
 systemctl enable mysqld &>>${LOG} && systemctl start mysqld &>>${LOG}
 StatusCheck
 
+echo "show plugins;" | mysql -uroot -p$MYSQL_PASSWORD 2>&1 | grep validate_password &>>${LOG}
+if [ $? -eq 0 ]; then
+  echo Remove Password Validate Plugin
+  echo "uninstall plugin validate_password;" | mysql -uroot -p$MYSQL_PASSWORD &>>${LOG}
+  StatusCheck
+fi
+
 echo "show databases;" | mysql -uroot -p$MYSQL_PASSWORD &>>${LOG}
 if [ $? -ne 0 ]; then
   echo Changing Default Password
@@ -26,12 +33,8 @@ if [ $? -ne 0 ]; then
   StatusCheck
 fi
 
-echo "show plugins;" | mysql -uroot -p$MYSQL_PASSWORD 2>&1 | grep validate_password &>>${LOG}
-if [ $? -eq 0 ]; then
-  echo Remove Password Validate Plugin
-  echo "uninstall plugin validate_password;" | mysql -uroot -p$MYSQL_PASSWORD &>>${LOG}
-  StatusCheck
-fi
+
+
 exit
 
 
