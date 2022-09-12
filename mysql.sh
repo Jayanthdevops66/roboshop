@@ -22,12 +22,18 @@ echo "show databases;" | mysql -uroot -p$MYSQL_PASSWORD &>>${LOG}
 if [ $? -ne 0 ]; then
   echo Changing Default Password
   DEFAULT_PASSWORD=$(grep "A tem" /var/log/mysqld.log | awk '{print $NF}')
-  echo "alter use 'root'@'localhost' identified with mysql_native_password by '$MYSQL_PASSWORD';" | mysql -uroot -p${DEFAULT_PASSWORD}
+  echo "alter use 'root'@'localhost' identified with mysql_native_password by '$MYSQL_PASSWORD';" | mysql --connect-expired-password -uroot -p${DEFAULT_PASSWORD}
   StatusCheck
 fi
 
-echo "uninstall plugin validate_password;" | mysql -uroot -p$MYSQL_PASSWORD
-#> uninstall plugin validate_password;
+echo "show pluggins;" | mysql -uroot -p$MYSQL_PASSWORD | grep vallidate_password &>>${LOG}
+if [ $? -ne 0 ]; then
+  echo Remove Password Validate Plugin
+  echo "uninstall plugin validate_password;" | mysql -uroot -p$MYSQL_PASSWORD &>>${LOG}
+  StatusCheck
+fi
+exit
+
 
 curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
 
