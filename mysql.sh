@@ -1,6 +1,10 @@
 source common.sh
 COMPONENT=mysql
 
+if [ -z "$MYSQL_PASSWORD" ]; then
+  echo -e "\e[33m env variable MYSQL_PASSWORD ids missing \e[0m"
+  exit 1
+fi
 
 
 echo Setup Yum Repos
