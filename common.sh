@@ -20,7 +20,7 @@ APP_USER_SETUP() {
        StatusCheck
      fi
 }
-APP_CLEAN () {
+APP_CLEAN() {
    echo Cleaning old Application Content
      cd /home/roboshop &>>${LOG} && rm -rf ${COMPONENT} &>>${LOG}
      StatusCheck
@@ -29,8 +29,8 @@ APP_CLEAN () {
      unzip -o /tmp/${COMPONENT}.zip &>>${LOG} && mv ${COMPONENT}-main ${COMPONENT} &>>${LOG} && cd ${COMPONENT} &>>${LOG}
      StatusCheck
 }
-SYSTEMD () {
-     echo Configuring ${COMPONENT} SystemD Service
+SYSTEMD() {
+  echo Configuring ${COMPONENT} SystemD Service
      mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG}
      systemctl daemon-reload &>>${LOG}
      StatusCheck
@@ -59,7 +59,7 @@ SYSTEMD () {
 
    SYSTEMD
  }
-JAVA () {
+JAVA() {
   echo Install Maven
   yum install maven -y &>>${LOG}
   StatusCheck
