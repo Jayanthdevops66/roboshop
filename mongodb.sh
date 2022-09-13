@@ -11,15 +11,13 @@ yum install -y mongodb-org &>>${LOG}
 StatusCheck
 
 echo Update MongoDB Listen Address
-sed -1  's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>${LOG}
+sed -i  's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>${LOG}
 StatusCheck
 
 echo Start MongoDB service
 systemctl enable mongod &>>${LOG} && systemctl restart mongod &>>${LOG}
 StatusCheck
 
-
-sed -1  's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>${LOG}
 DOWNLOAD
 
 echo "Extract Schema files"
