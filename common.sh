@@ -64,7 +64,7 @@ JAVA() {
   yum install maven -y &>>${LOG}
   StatusCheck
 
-  APP_USER-SETUP
+  APP_USER_SETUP
   DOWNLOAD
 
   APP_CLEAN
