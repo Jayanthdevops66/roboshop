@@ -1,3 +1,4 @@
+
 source common.sh
 COMPONENT=mysql
 

@@ -20,6 +20,28 @@ APP_USER_SETUP() {
        StatusCheck
      fi
 }
+APP_CLEAN () {
+   echo Cleaning old Application Content
+     cd /home/roboshop &>>${LOG} && rm -rf ${COMPONENT} &>>${LOG}
+     StatusCheck
+
+     echo Extract Appplication Content
+     unzip -o /tmp/${COMPONENT}.zip &>>${LOG} && mv ${COMPONENT}-main ${COMPONENT} &>>${LOG} && cd ${COMPONENT} &>>${LOG}
+     StatusCheck
+}
+SYSTEMD () {
+  echo Installing Nodejs Dependencies
+     npm install &>>${LOG}
+     StatusCheck
+     echo Configuring ${COMPONENT} SystemD Service
+     mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG}
+     systemctl daemon-reload &>>${LOG}
+     StatusCheck
+
+     echo Starting ${COMPONENT} Service
+     systemctl start ${COMPONENT} &>>${LOG} && systemctl enable ${COMPONENT} &>>${LOG}
+     StatusCheck
+}
 
  NodeJs() {
    echo Setting nodejs repos
@@ -33,21 +55,25 @@ APP_USER_SETUP() {
    APP_USER_SETUP
    DOWNLOAD
 
-   echo Cleaning old Application Content
-   cd /home/roboshop &>>${LOG} && rm -rf ${COMPONENT} &>>${LOG}
-   StatusCheck
+  APP_CLEAN
 
-   echo Extract Appplication Content
-   unzip -o /tmp/${COMPONENT}.zip &>>${LOG}
-   mv ${COMPONENT}-main ${COMPONENT} &>>${LOG}
-   cd ${COMPONENT} &>>${LOG}
-   StatusCheck
-
-   echo Installing Nodejs Dependencies
-   npm install &>>${LOG}
-   StatusCheck
+   SYSTEMD
  }
+JAVA () {
+  echo Install Maven
+  yum install maven -y
 
+  APP_USER-SETUP
+  DOWNLOAD
+
+  APP_CLEAN
+
+  echo Make application package
+  mvn clean package && mv target/shipping-1.0.jar shipping.jar
+
+  SYSTEMD
+
+}
 USER_ID=$(id -u)
 if [ $USER_ID -ne 0 ]; then
   echo -e "\e[31m you should run this script as a root user or sudo\e[0m"
