@@ -70,7 +70,7 @@ JAVA() {
   APP_CLEAN
 
   echo Make application package
-  mvn clean package && mv target/shipping-1.0.jar shipping.jar &>>${LOG}
+  mvn clean package &>>${LOG} && mv target/shipping-1.0.jar shipping.jar &>>${LOG}
   StatusCheck
 
   SYSTEMD
