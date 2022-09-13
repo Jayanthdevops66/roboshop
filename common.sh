@@ -30,9 +30,6 @@ APP_CLEAN () {
      StatusCheck
 }
 SYSTEMD () {
-  echo Installing Nodejs Dependencies
-     npm install &>>${LOG}
-     StatusCheck
      echo Configuring ${COMPONENT} SystemD Service
      mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG}
      systemctl daemon-reload &>>${LOG}
@@ -55,13 +52,17 @@ SYSTEMD () {
    APP_USER_SETUP
    DOWNLOAD
 
-  APP_CLEAN
+   APP_CLEAN
+   echo Installing Nodejs Dependencies
+   npm install &>>${LOG}
+   StatusCheck
 
    SYSTEMD
  }
 JAVA () {
   echo Install Maven
-  yum install maven -y
+  yum install maven -y &>>${LOG}
+  StatusCheck
 
   APP_USER-SETUP
   DOWNLOAD
@@ -69,7 +70,8 @@ JAVA () {
   APP_CLEAN
 
   echo Make application package
-  mvn clean package && mv target/shipping-1.0.jar shipping.jar
+  mvn clean package && mv target/shipping-1.0.jar shipping.jar &>>${LOG}
+  StatusCheck
 
   SYSTEMD
 
