@@ -23,6 +23,7 @@ StatusCheck
 
 echo Updating Nginx Configuration
 sed -e -i  '/catalogue/ s/localhost/catalogue-dev.roboshop.internal/' -e '/cart/ s/localhost/cart-dev.roboshop.internal/' -e '/user/ s/localhost/user-dev.roboshop.internal/' -e '/payment/ s/localhost/payment-dev.roboshop.internal/' -e '/shipping/ s/localhost/shipping-dev.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
+StatusCheck
 
 
 echo restarting nginx service
